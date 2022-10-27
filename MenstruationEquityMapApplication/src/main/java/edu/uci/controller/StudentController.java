@@ -24,9 +24,9 @@ public class StudentController {
     @ApiOperation("Search a product to find building information and returns top 5 buildings.")
     @GetMapping("/search")
     public List<Building> searchProduct(
-            @RequestParam("productId") String productId,
-            @RequestParam("longitude") Integer longitude,
-            @RequestParam("latitude") Integer latitude) {
+            @RequestParam("product_id") String productId,
+            @RequestParam("longitude") int longitude,
+            @RequestParam("latitude") int latitude) {
         // TODO: change code
         List<Building> result = new ArrayList<>(5);
         result.add(new Building("1", "Aldrich Hall", 100, 100, 100, 5));
