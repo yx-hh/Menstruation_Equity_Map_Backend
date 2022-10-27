@@ -11,9 +11,10 @@ import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel("Floor")
 public class Floor {
-    public Floor(String id, String name) {
+    public Floor(String id, String name, int validRoomNum) {
         this.id = id;
         this.name = name;
+        this.validRoomNum = validRoomNum;
     }
 
     public String getId() {
@@ -24,12 +25,13 @@ public class Floor {
         return name;
     }
 
+    public int getValidRoomNum() {
+        return validRoomNum;
+    }
+
     @Override
     public String toString() {
-        return "Floor{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                '}';
+        return "Floor{" + "id='" + id + '\'' + ", name='" + name + '\'' + ", validRoomNum=" + validRoomNum + '}';
     }
 
     @ApiModelProperty(value = "floor_id", required = true)
@@ -37,4 +39,7 @@ public class Floor {
 
     @ApiModelProperty(value = "floor_name", required = true)
     private final String name;
+
+    @ApiModelProperty(value = "valid_restroom_num", required = true)
+    private final int validRoomNum;
 }

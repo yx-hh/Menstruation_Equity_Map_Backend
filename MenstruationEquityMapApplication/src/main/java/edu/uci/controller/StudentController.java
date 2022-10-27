@@ -25,8 +25,8 @@ public class StudentController {
     @GetMapping("/search")
     public List<Building> searchProduct(
             @RequestParam("product_id") String productId,
-            @RequestParam("longitude") int longitude,
-            @RequestParam("latitude") int latitude) {
+            @RequestParam("longitude") double longitude,
+            @RequestParam("latitude") double latitude) {
         // TODO: change code
         List<Building> result = new ArrayList<>(5);
         result.add(new Building("1", "Aldrich Hall", 100, 100, 100, 5));
@@ -41,7 +41,7 @@ public class StudentController {
             @RequestParam("building_id") String buildingId) {
         // TODO: change code
         List<Floor> floors = new ArrayList<>();
-        floors.add(new Floor("1", "first floor"));
+        floors.add(new Floor("1", "first floor", 2));
         return new Building("1", "Aldrich Hall", 100, 100, 100, 5, floors);
     }
 

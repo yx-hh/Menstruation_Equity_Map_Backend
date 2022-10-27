@@ -14,7 +14,7 @@ import java.util.List;
 @ApiModel("Building information")
 public class Building {
     public Building(String id, String name,
-                    int latitude, int longitude) {
+                    double latitude, double longitude) {
         this.id = id;
         this.name = name;
         this.latitude = latitude;
@@ -22,7 +22,7 @@ public class Building {
     }
 
     public Building(String id, String name,
-                    int latitude, int longitude,
+                    double latitude, double longitude,
                     int distance, int walkingTime) {
         this.id = id;
         this.name = name;
@@ -33,7 +33,7 @@ public class Building {
     }
 
     public Building(String id, String name,
-                    int latitude, int longitude,
+                    double latitude, double longitude,
                     int distance, int walkingTime,
                     List<Floor> floors) {
         this.id = id;
@@ -53,11 +53,11 @@ public class Building {
         return name;
     }
 
-    public int getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public int getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
@@ -93,10 +93,10 @@ public class Building {
     private final String name;
 
     @ApiModelProperty(value = "latitude", required = true)
-    private final int latitude;
+    private final double latitude;
 
     @ApiModelProperty(value = "longitude", required = true)
-    private final int longitude;
+    private final double longitude;
 
     @ApiModelProperty(value = "distance")
     private int distance;
