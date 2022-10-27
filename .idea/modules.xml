@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/MenstruationEquityMapApplication/MenstruationEquityMapApplication.iml" filepath="$PROJECT_DIR$/MenstruationEquityMapApplication/MenstruationEquityMapApplication.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/Menstruation_Equity_Map_Backend.iml" filepath="$PROJECT_DIR$/.idea/Menstruation_Equity_Map_Backend.iml" />
-    </modules>
-  </component>
-</project>
