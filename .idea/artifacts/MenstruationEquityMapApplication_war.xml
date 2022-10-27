@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="MenstruationEquityMapApplication:war">
+    <output-path>$PROJECT_DIR$/MenstruationEquityMapApplication/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>MenstruationEquityMapApplication</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="MenstruationEquityMapApplication.war">
+      <element id="artifact" artifact-name="MenstruationEquityMapApplication:war exploded" />
+    </root>
+  </artifact>
+</component>
