@@ -8,7 +8,6 @@ package edu.uci.controller;
 
 import edu.uci.objects.Building;
 import edu.uci.objects.Floor;
-import edu.uci.objects.ReportForm;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +23,6 @@ public class StudentController {
     @ApiOperation("Search a product to find building information and returns top 5 buildings.")
     @GetMapping("/search")
     public List<Building> searchProduct(
-            @RequestParam("product_id") String productId,
             @RequestParam("longitude") double longitude,
             @RequestParam("latitude") double latitude) {
         // TODO: change code
@@ -36,9 +34,7 @@ public class StudentController {
 
     @ApiOperation("Click a building to find floor and restroom information.")
     @GetMapping("/building")
-    public Building buildingInfo(
-            @RequestParam("product_id") String productId,
-            @RequestParam("building_id") String buildingId) {
+    public Building buildingInfo(@RequestParam("building_id") String buildingId) {
         // TODO: change code
         List<Floor> floors = new ArrayList<>();
         floors.add(new Floor("1", "first floor", 2));
@@ -47,8 +43,7 @@ public class StudentController {
 
     @ApiOperation("Report missing product.")
     @PostMapping("/report-miss")
-    public void reportMissing(@RequestBody ReportForm form) {
+    public void reportMissing(@RequestParam("restroom_id") String restroomId) {
         // TODO: coding here
-        System.out.println(form);
     }
 }

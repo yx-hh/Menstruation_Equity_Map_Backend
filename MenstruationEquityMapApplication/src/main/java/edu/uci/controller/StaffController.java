@@ -6,7 +6,6 @@
 
 package edu.uci.controller;
 
-import edu.uci.objects.ReportForm;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -18,17 +17,13 @@ public class StaffController {
 
     @ApiOperation("Report refilling product.")
     @PostMapping("/report-refill")
-    public void reportRefill(@RequestBody ReportForm form) {
+    public void reportRefill(@RequestParam("restroom_id") String restroomId) {
         // TODO: coding here
-        System.out.println(form);
     }
 
     @ApiOperation("Generate QR code.")
     @GetMapping("/qrcode")
-    public String genQRCode(
-            @RequestParam("building_id") String buildingId,
-            @RequestParam("floor_id") String floorId,
-            @RequestParam("restroom_id") String restroomId) {
+    public String genQRCode(@RequestParam("restroom_id") String restroomId) {
         // TODO: change code
         return "image";
     }
