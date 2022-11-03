@@ -1,11 +1,11 @@
 CREATE TABLE `restroom` (
     `restroom_id` int NOT NULL AUTO_INCREMENT,
-    `building_id` int NOT NULL,
+    `building_id` int NOT NULL DEFAULT '0',
     `floor_name` varchar(200) NOT NULL,
     `room_num` varchar(200) NOT NULL,
-    `product_status` tinyint(1) NOT NULL DEFAULT '1',
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `id_UNIQUE` (`id`)
+    `product_status` int NOT NULL DEFAULT '1',
+    PRIMARY KEY (`restroom_id`),
+    UNIQUE KEY `id_UNIQUE` (`restroom_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- add column building_num
@@ -132,18 +132,24 @@ VALUES
 (105,'1','1030'),
 (831,'1','F111');
 
+-- add values for the building_id column
 update restroom inner join
-(select restroom.id as restroom_id, building.id as building_id
-    from building, restroom
-    where building.building_num = restroom.building_num
-    order by restroom.id) as t1
-on restroom.id = t1.restroom_id
+(select r.restroom_id as restroom_id, b.building_id as building_id
+    from building as b, restroom as r
+    where b.building_num = r.building_num
+    order by r.restroom_id) as t1
+on restroom.restroom_id = t1.restroom_id
 set restroom.`building_id` = t1.`building_id`;
 
+-- corner case: change building_id for restroom 113
 update restroom
 set building_id = 11
-where id = 113;
+where restroom_id = 113;
 
 -- delete building_num column
 alter table restroom
 drop column building_num;
+
+-- unset default value for building_id
+ALTER TABLE `menstruation_equity_map`.`restroom` 
+CHANGE COLUMN `building_id` `building_id` INT NOT NULL ;

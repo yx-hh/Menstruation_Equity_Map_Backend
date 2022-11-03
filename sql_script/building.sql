@@ -4,8 +4,8 @@ CREATE TABLE `building` (
     `building_name` varchar(200) NOT NULL,
     `latitude` decimal(5,2) NOT NULL COMMENT 'latitude',
     `longitude` decimal(5,2) NOT NULL COMMENT 'longtitude',
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `id_UNIQUE` (`id`)
+    PRIMARY KEY (`building_id`),
+    UNIQUE KEY `id_UNIQUE` (`building_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO building (
