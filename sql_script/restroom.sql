@@ -1,9 +1,14 @@
+DROP TABLE IF EXISTS `restroom`;
+
 CREATE TABLE `restroom` (
     `restroom_id` int NOT NULL AUTO_INCREMENT,
     `building_id` int NOT NULL DEFAULT '0',
     `floor_name` varchar(200) NOT NULL,
     `room_num` varchar(200) NOT NULL,
     `product_status` int NOT NULL DEFAULT '1',
+    `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `deleted` tinyint(1) NOT NULL DEFAULT '0',
     PRIMARY KEY (`restroom_id`),
     UNIQUE KEY `id_UNIQUE` (`restroom_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
