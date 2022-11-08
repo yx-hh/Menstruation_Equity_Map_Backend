@@ -26,16 +26,10 @@ public class StudentController {
     @ApiOperation("Search a product to find building information and returns top 5 buildings.")
     @GetMapping("/search")
     public List<BuildingVO> searchProduct(
-            @RequestParam(value = "longitude") double longitude,
-            @RequestParam(value = "latitude") double latitude,
+            @RequestParam(value = "longitude", defaultValue = "33.64325158034576") double longitude,
+            @RequestParam(value = "latitude", defaultValue = "-117.84370671600364") double latitude,
     @RequestParam(value = "radius", required = false, defaultValue = "0.5") double radius) throws IOException {
-        // TODO: change code
         return buildingService.findNearestBuilding(latitude, longitude, radius);
-//        List<BuildingVO> result = new ArrayList<>(5);
-//        result.add(new BuildingVO(1, "Aldrich Hall", 100, 100, 100, 5));
-//        result.add(new BuildingVO(2, "Langson Library", 110, 120, 200, 10));
-//        return result;
-//        return null;
     }
 
     @ApiOperation("Click a building to find floor and restroom information.")

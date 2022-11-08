@@ -44,12 +44,13 @@ public class BuildingServiceImpl implements BuildingService {
             BuildingVO vo = findById(buildingId);
             Double distance = new BigDecimal(Double.parseDouble(String.valueOf(map.get("distance")))).
                     setScale(2, BigDecimal.ROUND_HALF_UP).
-                    doubleValue();
+                    doubleValue()*1000;
+            Double walkingTime = new BigDecimal(distance/100.00).setScale(0, BigDecimal.ROUND_CEILING).doubleValue();
             vo.setLatitude(latitude).
                     setLongitude(longitude).
                     setDistance(distance).
                     // todo change to real walking time
-                    setWalkingTime(5.00);
+                    setWalkingTime(walkingTime);
 
             res.add(vo);
 
