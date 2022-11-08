@@ -20,8 +20,7 @@ public class Restroom extends ComDO{
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
 
-    // todo tobe chnage to building_id
-    @Column(name = "building_num")
+    @Column(name = "building_id")
     private Integer buildingId;
 
     @Column(name = "floor_name")

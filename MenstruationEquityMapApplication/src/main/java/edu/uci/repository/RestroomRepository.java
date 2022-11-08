@@ -1,7 +1,6 @@
 package edu.uci.repository;
 
 import edu.uci.objects.DO.Restroom;
-import edu.uci.objects.VO.FloorVO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;

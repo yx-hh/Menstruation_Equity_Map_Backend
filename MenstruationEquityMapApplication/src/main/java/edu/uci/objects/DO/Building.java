@@ -20,9 +20,6 @@ public class Building extends ComDO{
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "building_num")
-    private Integer buildingNum;
-
     @Column(name = "building_name")
     private String buildingName;
 
