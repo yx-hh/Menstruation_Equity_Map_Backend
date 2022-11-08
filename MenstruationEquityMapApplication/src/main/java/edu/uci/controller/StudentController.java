@@ -6,39 +6,42 @@
 
 package edu.uci.controller;
 
-import edu.uci.objects.Building;
-import edu.uci.objects.Floor;
+import edu.uci.objects.VO.BuildingVO;
+import edu.uci.service.BuildingService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 
 
 @Api(tags = "student users")
 @RestController
 public class StudentController {
+    @Autowired
+    private BuildingService buildingService;
 
     @ApiOperation("Search a product to find building information and returns top 5 buildings.")
     @GetMapping("/search")
-    public List<Building> searchProduct(
-            @RequestParam("longitude") double longitude,
-            @RequestParam("latitude") double latitude) {
+    public List<BuildingVO> searchProduct(
+            @RequestParam(value = "longitude") double longitude,
+            @RequestParam(value = "latitude") double latitude,
+    @RequestParam(value = "radius", required = false, defaultValue = "0.5") double radius) throws IOException {
         // TODO: change code
-        List<Building> result = new ArrayList<>(5);
-        result.add(new Building("1", "Aldrich Hall", 100, 100, 100, 5));
-        result.add(new Building("2", "Langson Library", 110, 120, 200, 10));
-        return result;
+        return buildingService.findNearestBuilding(latitude, longitude, radius);
+//        List<BuildingVO> result = new ArrayList<>(5);
+//        result.add(new BuildingVO(1, "Aldrich Hall", 100, 100, 100, 5));
+//        result.add(new BuildingVO(2, "Langson Library", 110, 120, 200, 10));
+//        return result;
+//        return null;
     }
 
     @ApiOperation("Click a building to find floor and restroom information.")
     @GetMapping("/building")
-    public Building buildingInfo(@RequestParam("building_id") String buildingId) {
-        // TODO: change code
-        List<Floor> floors = new ArrayList<>();
-        floors.add(new Floor("1", "first floor", 2));
-        return new Building("1", "Aldrich Hall", 100, 100, 100, 5, floors);
+    public BuildingVO buildingInfo(@RequestParam("building_id") Integer buildingId) throws IOException, IllegalAccessException, InstantiationException {
+        return buildingService.findById(buildingId);
     }
 
     @ApiOperation("Report missing product.")

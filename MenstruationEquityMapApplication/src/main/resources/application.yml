@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: menstruation-equality-map
+  datasource:
+#    schema: classpath:db/schema.sql
+#    data: classpath:db/data.sql
+#    sql-script-encoding: UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:33060/menstruation_equity_map?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&useSSL=false
+    username: root
+    password: 22hjz9UhA-S
+  swagger:
+    title: menstruation-equality-map
+    description: menstruation-equality-map
+  jpa:
+    show-sql: true
+
+google:
+  api-key: AIzaSyDL0gcQf5NFWRFZdXgUtatPoOxE5JaxdJY
+  # get building's latitude and longitude
+  geoUrl: https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=%s
+  distancematrix: https://maps.googleapis.com/maps/api/distancematrix/json?origins=%s&destinations=%s&key=%s
+
+
