@@ -79,7 +79,7 @@ VALUES
 ('Humanities Hall  HH','1','122'),
 ('Humanities Hall  HH','2','272'),
 ('Humanities Instructional Bldg.  HIB','1','117'),
-('Intercollegiate Athletics Building','1','N/A'),
+('Intercollegiate Athletics Building','1','N/A'),
 ('Information & Computer Science  ICS','1','166'),
 ('Information & Computer Science  ICS','2','239'),
 ('Information & Computer Science 2   ICS2','1','118'),

@@ -58,7 +58,7 @@ VALUES
 ('Humanities Instructional Bldg.  HIB','33.64855847','-117.8438401'),
 ('Information & Computer Science  ICS','33.64397383','-117.8416794'),
 ('Information & Computer Science 2   ICS2','33.64442542','-117.8417685'),
-('Intercollegiate�Athletics Building','33.64834571','-117.8454802'),
+('Intercollegiate Athletics Building','33.64834571','-117.8454802'),
 ('Interdisciplinary Science and Engineering Building','33.64329624','-117.843932'),
 ('Interim Office Building','33.66494333','-117.8548507'),
 ('Irvine Hall   IH','33.64685848','-117.8530208'),
