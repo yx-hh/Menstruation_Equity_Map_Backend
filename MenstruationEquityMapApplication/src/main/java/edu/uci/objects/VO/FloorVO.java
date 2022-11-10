@@ -9,11 +9,13 @@ package edu.uci.objects.VO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 
 @ApiModel("Floor")
 @Data
+@Accessors(chain = true)
 public class FloorVO {
 
     @ApiModelProperty(value = "floor_name", required = true)

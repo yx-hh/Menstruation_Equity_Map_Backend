@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public interface BuildingRepository extends JpaRepository<Building, Integer> {
 
-    @Query(value = "SELECT id, building_name," +
+    @Query(value = "SELECT id, building_name, latitude, longitude, " +
             "( 6371 * " +
             "    ACOS( " +
             "        COS( RADIANS( latitude ) ) * " +
