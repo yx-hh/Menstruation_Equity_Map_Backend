@@ -35,13 +35,28 @@ public class BuildingServiceImplement implements BuildingService {
     RestroomService restroomService;
 
     @Override
-    public List<BuildingVO> findAllBuildings() throws IOException {
+    public List<BuildingVO> findAllBuildings() {
         List<Building> buildingList = buildingRepository.findAll();
         List<BuildingVO> buildingVOList = new ArrayList<>();
+
         for (Building building : buildingList) {
-            int id = building.getId();
-            Map<String, List<RestroomVO>> restroomGroup = restroomService.findAllRestrooms(id);
-            buildingVOList.add(getBuildingVO(id, restroomGroup));
+            Map<String, List<RestroomVO>> restroomGroup = restroomService.findAllRestrooms(building.getId());
+
+            // build floorVO
+            List<FloorVO> floorVOList = new ArrayList<>();
+            for (String floorName : restroomGroup.keySet()) {
+                FloorVO floorVO = new FloorVO();
+                floorVO.setName(floorName);
+                floorVO.setRestrooms(restroomGroup.get(floorName));
+                floorVOList.add(floorVO);
+            }
+
+            buildingVOList.add(
+                    new BuildingVO().setId(building.getId())
+                            .setName(building.getBuildingName())
+                            .setLatitude(building.getLatitude())
+                            .setLongitude(building.getLongitude())
+                            .setFloors(floorVOList));
         }
         return buildingVOList;
     }
@@ -53,7 +68,7 @@ public class BuildingServiceImplement implements BuildingService {
 
         for (Map<String, Object> buildingInfo : buildingInfoList) {
             int id = Integer.parseInt(String.valueOf(buildingInfo.get("id")));
-            BuildingVO buildingVO = getBuildingVO(id, restroomService.findAvailableRestrooms(id));
+            BuildingVO buildingVO = new BuildingVO();
 
             double distance = BigDecimal.valueOf(Double.parseDouble(String.valueOf(buildingInfo.get("distance")))).
                     setScale(2, RoundingMode.HALF_UP).doubleValue() * 1000;
@@ -64,33 +79,5 @@ public class BuildingServiceImplement implements BuildingService {
             buildingVOList.add(buildingVO);
         }
         return buildingVOList;
-    }
-
-    private BuildingVO getBuildingVO(int buildingId, Map<String, List<RestroomVO>> restroomGroup) throws IOException {
-        // find building info
-        Building building = buildingRepository.findById(buildingId).get();
-
-        // if building's latitude or longitude is zero then call api to get the data
-        if (building.getLatitude() < 0.000001 && building.getLongitude() < 0.000001) {
-            BuildingAddress lagAndLat = googleMapHelper.getLagAndLat(building.getBuildingName());
-            // update database
-            buildingRepository.save(building.setLatitude(lagAndLat.getLatitude()).setLongitude(lagAndLat.getLongitude()));
-        }
-
-        // build floorVO
-        List<FloorVO> floorVOList = new ArrayList<>();
-        for (String floorName : restroomGroup.keySet()) {
-            FloorVO floorVO = new FloorVO();
-            floorVO.setName(floorName);
-            floorVO.setValidRoomNum(restroomGroup.get(floorName).size());
-            floorVO.setRestrooms(restroomGroup.get(floorName));
-            floorVOList.add(floorVO);
-        }
-
-        return new BuildingVO().setId(building.getId())
-                .setName(building.getBuildingName())
-                .setLatitude(building.getLatitude())
-                .setLongitude(building.getLongitude())
-                .setFloors(floorVOList);
     }
 }
