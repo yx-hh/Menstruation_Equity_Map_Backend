@@ -4,7 +4,7 @@
  * @author ruiyan ma
  */
 
-package edu.uci.objects.VO;
+package edu.uci.entities.VO;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -40,6 +40,6 @@ public class BuildingVO {
     @ApiModelProperty(value = "walking_time")
     private Double walkingTime;
 
-    @ApiModelProperty(value = "floors_list")
-    private List<FloorVO> floors;
+    @ApiModelProperty(value = "floor_list")
+    private List<FloorVO> floorList;
 }

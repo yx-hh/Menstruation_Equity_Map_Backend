@@ -1,6 +1,6 @@
 package edu.uci.service;
 
-import edu.uci.objects.VO.BuildingVO;
+import edu.uci.entities.VO.BuildingVO;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,4 +13,6 @@ public interface BuildingService {
     List<BuildingVO> findNearestBuilding(double latitude, double longitude, double radius) throws IOException;
 
     BuildingVO findById(Integer id) throws IOException, IllegalAccessException, InstantiationException;
+
+//    List<BuildingVO> findAllBuildings();
 }

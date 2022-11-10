@@ -2,7 +2,7 @@ package edu.uci.common;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import edu.uci.objects.Baddress;
+import edu.uci.entities.BuildingAddress;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -25,33 +25,33 @@ public class GoogleMapHelper {
     @Value("${google.api-key}")
     private String apiKey;
 
-    @Value("${google.distancematrix}")
-    private String distancematrixUrl;
+    @Value("${google.distance-matrix}")
+    private String distanceMatrixUrl;
 
     @Value("${google.geoUrl}")
     private String geoUrl;
 
-    public List<Baddress> getNearestBuildings(Baddress origin, List<Baddress> addresses) throws IOException {
+    public List<BuildingAddress> getNearestBuildings(BuildingAddress origin, List<BuildingAddress> addresses) throws IOException {
         // todo mock data, need delete later
-        origin = new Baddress(40.6655101, -73.89188969999998);
-        addresses = new LinkedList<Baddress>();
-        addresses.add(new Baddress(40.659569, -73.933783));
-        addresses.add(new Baddress(40.729029,-73.851524));
-        addresses.add(new Baddress(40.6860072,-73.6334271));
-        addresses.add(new Baddress(40.598566,-73.7527626));
+        origin = new BuildingAddress(40.6655101, -73.89188969999998);
+        addresses = new LinkedList<BuildingAddress>();
+        addresses.add(new BuildingAddress(40.659569, -73.933783));
+        addresses.add(new BuildingAddress(40.729029, -73.851524));
+        addresses.add(new BuildingAddress(40.6860072, -73.6334271));
+        addresses.add(new BuildingAddress(40.598566, -73.7527626));
 
-        String originEncode = URLEncoder.encode(origin.getLatitude() +","+ origin.getLongitude(), "UTF-8");
+        String originEncode = URLEncoder.encode(origin.getLatitude() + "," + origin.getLongitude(), "UTF-8");
         StringBuilder sb = new StringBuilder();
-        for(int i =0; i< addresses.size(); i++){
-            Baddress address = addresses.get(i);
-            sb.append(URLEncoder.encode(address.getLatitude() +","+ address.getLongitude(), "UTF-8"));
-            if(i != addresses.size() -1) {
+        for (int i = 0; i < addresses.size(); i++) {
+            BuildingAddress address = addresses.get(i);
+            sb.append(URLEncoder.encode(address.getLatitude() + "," + address.getLongitude(), "UTF-8"));
+            if (i != addresses.size() - 1) {
                 sb.append(URLEncoder.encode("|", "UTF-8"));
             }
         }
         String destinationEncode = sb.toString();
 
-        String url = String.format(distancematrixUrl,
+        String url = String.format(distanceMatrixUrl,
                 originEncode,
                 destinationEncode,
                 apiKey);
@@ -72,11 +72,11 @@ public class GoogleMapHelper {
         String responseBody = response.body().string();
         JsonObject jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
         JsonObject locationJson = jsonObject.get("rows").getAsJsonObject().get("location").getAsJsonObject();
-        Baddress address = new Baddress(locationJson.get("lat").getAsDouble(), locationJson.get("lng").getAsDouble());
+        BuildingAddress address = new BuildingAddress(locationJson.get("lat").getAsDouble(), locationJson.get("lng").getAsDouble());
         return null;
     }
 
-    public Baddress getLagAndLat(String address) throws IOException {
+    public BuildingAddress getLagAndLat(String address) throws IOException {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         address = address + "  Irvine";
@@ -92,11 +92,11 @@ public class GoogleMapHelper {
         response.headers();
         String responseBody = response.body().string();
         JsonObject jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
-        if(jsonObject.get("status").getAsString().equalsIgnoreCase("OK")) {
+        if (jsonObject.get("status").getAsString().equalsIgnoreCase("OK")) {
             JsonObject locationJson = jsonObject.get("results").getAsJsonArray().
                     get(0).getAsJsonObject().get("geometry").getAsJsonObject().get("location").getAsJsonObject();
-            return new Baddress(locationJson.get("lat").getAsDouble(), locationJson.get("lng").getAsDouble());
-        }else{
+            return new BuildingAddress(locationJson.get("lat").getAsDouble(), locationJson.get("lng").getAsDouble());
+        } else {
             return null;
         }
     }

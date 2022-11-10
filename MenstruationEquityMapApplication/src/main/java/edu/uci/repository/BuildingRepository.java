@@ -1,12 +1,9 @@
 package edu.uci.repository;
 
-import edu.uci.objects.DO.Building;
+import edu.uci.entities.DO.Building;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,16 +13,16 @@ import java.util.Map;
  */
 public interface BuildingRepository extends JpaRepository<Building, Integer> {
 
-    @Query(value = "SELECT id, building_name, \n" +
-            "( 6371 * \n" +
-            "    ACOS( \n" +
-            "        COS( RADIANS( latitude ) ) * \n" +
-            "        COS( RADIANS( ?1 ) ) * \n" +
-            "        COS( RADIANS( ?2 ) - \n" +
-            "        RADIANS( longitude ) ) + \n" +
-            "        SIN( RADIANS( latitude ) ) * \n" +
-            "        SIN( RADIANS( ?1) ) \n" +
-            "    ) \n" +
+    @Query(value = "SELECT id, building_name," +
+            "( 6371 * " +
+            "    ACOS( " +
+            "        COS( RADIANS( latitude ) ) * " +
+            "        COS( RADIANS( ?1 ) ) * " +
+            "        COS( RADIANS( ?2 ) - " +
+            "        RADIANS( longitude ) ) + " +
+            "        SIN( RADIANS( latitude ) ) * " +
+            "        SIN( RADIANS( ?1) ) " +
+            "    ) " +
             ") AS distance FROM building HAVING distance <= ?3 ORDER BY distance ASC", nativeQuery = true)
-    List<Map<String, Object>> findBuildingByRadius(double latitude, double longitude, double radius);
+    List<Map<String, Object>> findBuildingByRadius(double userLatitude, double userLongitude, double radius);
 }
