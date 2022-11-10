@@ -15,5 +15,5 @@ public interface RestroomService {
 
     Map<String, List<RestroomVO>> findAvailableRestrooms(int buildingId);
 
-    void setProductStatus(int restroomId, boolean status);
+    boolean setProductStatus(int restroomId, boolean status);
 }

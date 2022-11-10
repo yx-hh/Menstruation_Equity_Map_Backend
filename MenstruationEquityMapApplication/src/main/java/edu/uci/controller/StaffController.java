@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
 @Api(tags = "staff users")
@@ -32,8 +33,8 @@ public class StaffController {
 
     @ApiOperation("Report refilling product.")
     @PostMapping("/report-refill")
-    public void reportRefill(@RequestParam("restroom_id") String restroomId) {
-        restroomService.setProductStatus(Integer.parseInt(restroomId), true);
+    public boolean reportRefill(@RequestParam("restroom_id") String restroomId) {
+        return restroomService.setProductStatus(Integer.parseInt(restroomId), true);
     }
 
     @ApiOperation("Return all buildings information.")

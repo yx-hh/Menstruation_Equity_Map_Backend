@@ -31,11 +31,13 @@ public class RestroomServiceImplement implements RestroomService {
     }
 
     @Override
-    public void setProductStatus(int restroomId, boolean status) {
+    public boolean setProductStatus(int restroomId, boolean status) {
         try {
             Restroom restroom = restroomRepository.findById(restroomId).get();
             restroomRepository.save(restroom.setProductStatus(status));
+            return true;
         } catch (NoSuchElementException e) {
+            return false;
         }
     }
 
