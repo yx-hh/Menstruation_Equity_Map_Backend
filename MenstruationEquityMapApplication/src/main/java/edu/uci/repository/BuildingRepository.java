@@ -1,6 +1,6 @@
 package edu.uci.repository;
 
-import edu.uci.entities.DO.Building;
+import edu.uci.objects.DO.Building;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

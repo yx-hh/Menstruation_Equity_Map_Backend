@@ -4,7 +4,7 @@
  * @author ruiyan ma
  */
 
-package edu.uci.entities.VO;
+package edu.uci.objects.VO;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.util.List;
-import java.util.Map;
 
 @ApiModel("Building information")
 @Data
@@ -41,9 +40,6 @@ public class BuildingVO {
     @ApiModelProperty(value = "walking_time")
     private Double walkingTime;
 
-    /**
-     * A treemap which maps floor_name to a list of restrooms.
-     */
-    @ApiModelProperty(value = "restroom_group")
-    private Map<String, List<RestroomVO>> restroomGroup;
+    @ApiModelProperty(value = "floor_list")
+    private List<FloorVO> floors;
 }

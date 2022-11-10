@@ -1,4 +1,4 @@
-package edu.uci.entities;
+package edu.uci.objects;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -6,7 +6,7 @@
 
 package edu.uci.controller;
 
-import edu.uci.entities.VO.BuildingVO;
+import edu.uci.objects.VO.BuildingVO;
 import edu.uci.service.BuildingService;
 import edu.uci.service.RestroomService;
 import io.swagger.annotations.Api;

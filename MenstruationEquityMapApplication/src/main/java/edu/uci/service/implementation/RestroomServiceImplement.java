@@ -1,7 +1,7 @@
 package edu.uci.service.implementation;
 
-import edu.uci.entities.DO.Restroom;
-import edu.uci.entities.VO.RestroomVO;
+import edu.uci.objects.DO.Restroom;
+import edu.uci.objects.VO.RestroomVO;
 import edu.uci.repository.RestroomRepository;
 import edu.uci.service.RestroomService;
 import org.springframework.beans.factory.annotation.Autowired;

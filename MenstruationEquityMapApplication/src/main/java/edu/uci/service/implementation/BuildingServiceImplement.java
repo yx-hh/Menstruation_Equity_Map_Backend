@@ -1,10 +1,11 @@
 package edu.uci.service.implementation;
 
 import edu.uci.common.GoogleMapHelper;
-import edu.uci.entities.BuildingAddress;
-import edu.uci.entities.DO.Building;
-import edu.uci.entities.VO.BuildingVO;
-import edu.uci.entities.VO.RestroomVO;
+import edu.uci.objects.BuildingAddress;
+import edu.uci.objects.DO.Building;
+import edu.uci.objects.VO.BuildingVO;
+import edu.uci.objects.VO.FloorVO;
+import edu.uci.objects.VO.RestroomVO;
 import edu.uci.repository.BuildingRepository;
 import edu.uci.service.BuildingService;
 import edu.uci.service.RestroomService;
@@ -76,10 +77,20 @@ public class BuildingServiceImplement implements BuildingService {
             buildingRepository.save(building.setLatitude(lagAndLat.getLatitude()).setLongitude(lagAndLat.getLongitude()));
         }
 
+        // build floorVO
+        List<FloorVO> floorVOList = new ArrayList<>();
+        for (String floorName : restroomGroup.keySet()) {
+            FloorVO floorVO = new FloorVO();
+            floorVO.setFloorName(floorName);
+            floorVO.setValidRoomNum(restroomGroup.get(floorName).size());
+            floorVO.setRestrooms(restroomGroup.get(floorName));
+            floorVOList.add(floorVO);
+        }
+
         return new BuildingVO().setId(building.getId())
                 .setName(building.getBuildingName())
                 .setLatitude(building.getLatitude())
                 .setLongitude(building.getLongitude())
-                .setRestroomGroup(restroomGroup);
+                .setFloors(floorVOList);
     }
 }

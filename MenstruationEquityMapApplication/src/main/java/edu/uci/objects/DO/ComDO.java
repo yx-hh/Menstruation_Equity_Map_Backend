@@ -1,4 +1,4 @@
-package edu.uci.entities.DO;
+package edu.uci.objects.DO;
 
 import lombok.Data;
 

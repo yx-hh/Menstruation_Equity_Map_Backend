@@ -2,7 +2,7 @@ package edu.uci.common;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import edu.uci.entities.BuildingAddress;
+import edu.uci.objects.BuildingAddress;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;

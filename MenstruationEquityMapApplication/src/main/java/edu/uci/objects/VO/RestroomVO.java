@@ -1,10 +1,10 @@
 /**
- * Floor information class.
+ * Restroom information class.
  *
  * @author ruiyan ma
  */
 
-package edu.uci.entities.VO;
+package edu.uci.objects.VO;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

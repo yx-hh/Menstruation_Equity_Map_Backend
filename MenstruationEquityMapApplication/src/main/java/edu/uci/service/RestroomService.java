@@ -1,6 +1,6 @@
 package edu.uci.service;
 
-import edu.uci.entities.VO.RestroomVO;
+import edu.uci.objects.VO.RestroomVO;
 
 import java.util.List;
 import java.util.Map;

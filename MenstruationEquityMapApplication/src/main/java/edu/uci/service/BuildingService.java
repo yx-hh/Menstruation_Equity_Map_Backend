@@ -1,6 +1,6 @@
 package edu.uci.service;
 
-import edu.uci.entities.VO.BuildingVO;
+import edu.uci.objects.VO.BuildingVO;
 
 import java.io.IOException;
 import java.util.List;
