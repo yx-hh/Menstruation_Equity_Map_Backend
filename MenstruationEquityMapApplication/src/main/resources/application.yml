@@ -8,7 +8,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/menstruation_equity_map?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&useSSL=false
     username: root
-    password: ruiyan@MYSQL4597
+    password:
   swagger:
     title: menstruation-equality-map
     description: menstruation-equality-map
