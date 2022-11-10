@@ -81,7 +81,7 @@ public class BuildingServiceImplement implements BuildingService {
         List<FloorVO> floorVOList = new ArrayList<>();
         for (String floorName : restroomGroup.keySet()) {
             FloorVO floorVO = new FloorVO();
-            floorVO.setFloorName(floorName);
+            floorVO.setName(floorName);
             floorVO.setValidRoomNum(restroomGroup.get(floorName).size());
             floorVO.setRestrooms(restroomGroup.get(floorName));
             floorVOList.add(floorVO);

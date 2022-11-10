@@ -17,7 +17,7 @@ import java.util.List;
 public class FloorVO {
 
     @ApiModelProperty(value = "floor_name", required = true)
-    private String floorName;
+    private String name;
 
     @ApiModelProperty(value = "valid_room_number")
     private int validRoomNum;
