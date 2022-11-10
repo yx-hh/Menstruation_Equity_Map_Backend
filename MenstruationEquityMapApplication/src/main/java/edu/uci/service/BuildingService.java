@@ -6,13 +6,13 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * @author Huang Yuxin
- * @date 2022/11/1
+ * Building service interface.
+ *
+ * @author Huang Yuxin, ruiyan ma
  */
 public interface BuildingService {
+
+    List<BuildingVO> findAllBuildings() throws IOException;
+
     List<BuildingVO> findNearestBuilding(double latitude, double longitude, double radius) throws IOException;
-
-    BuildingVO findById(Integer id) throws IOException, IllegalAccessException, InstantiationException;
-
-//    List<BuildingVO> findAllBuildings();
 }

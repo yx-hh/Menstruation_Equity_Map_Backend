@@ -6,18 +6,19 @@ import lombok.experimental.Accessors;
 import javax.persistence.*;
 
 /**
- * @author Huang Yuxin
- * @date 2022/11/1
+ * RestroomVO class, represents a Restroom.
+ *
+ * @author ruiyan ma
  */
 @Entity
 @Data
 @Accessors(chain = true)
-@Table( name ="restroom" )
-public class Restroom extends ComDO{
+@Table(name = "restroom")
+public class Restroom extends ComDO {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "building_id")

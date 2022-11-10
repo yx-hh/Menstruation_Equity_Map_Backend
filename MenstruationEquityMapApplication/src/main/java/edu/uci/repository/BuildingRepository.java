@@ -24,5 +24,5 @@ public interface BuildingRepository extends JpaRepository<Building, Integer> {
             "        SIN( RADIANS( ?1) ) " +
             "    ) " +
             ") AS distance FROM building HAVING distance <= ?3 ORDER BY distance ASC", nativeQuery = true)
-    List<Map<String, Object>> findBuildingByRadius(double userLatitude, double userLongitude, double radius);
+    List<Map<String, Object>> findNearestBuildings(double userLatitude, double userLongitude, double radius);
 }

@@ -8,6 +8,7 @@ package edu.uci.controller;
 
 import edu.uci.entities.VO.BuildingVO;
 import edu.uci.service.BuildingService;
+import edu.uci.service.RestroomService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class StudentController {
     @Autowired
     private BuildingService buildingService;
 
+    @Autowired
+    private RestroomService restroomService;
+
     @ApiOperation("Find the nearest 5 buildings and them.")
     @GetMapping("/search")
     public List<BuildingVO> searchProduct(
@@ -38,6 +42,6 @@ public class StudentController {
     @ApiOperation("Report missing product.")
     @PostMapping("/report-miss")
     public void reportMissing(@RequestParam("restroom_id") String restroomId) {
-        // TODO: coding here
+        restroomService.setProductStatus(Integer.parseInt(restroomId), false);
     }
 }

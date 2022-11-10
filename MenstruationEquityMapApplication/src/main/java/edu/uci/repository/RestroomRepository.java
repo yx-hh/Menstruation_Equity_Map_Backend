@@ -10,21 +10,19 @@ import java.util.Map;
 
 
 /**
- * @author Huang Yuxin
- * @date 2022/11/1
+ * Restroom repository class, for query restroom table.
+ *
+ * @author ruiyan ma
  */
 public interface RestroomRepository extends JpaRepository<Restroom, Integer> {
 
     @Transactional(timeout = 10)
-    @Query(value = "SELECT floor_name, count(*) AS validRoomNum " +
-            "FROM restroom " +
-            "WHERE building_id = ?1 AND deleted = FALSE AND product_status = TRUE " +
-            "GROUP BY floor_name", nativeQuery = true)
-    List<Map<String, Object>> findFloorByBuildingId(int buildingId);
+    @Query(value = "SELECT id, floor_name, room_num FROM restroom " +
+            "WHERE building_id = ?1 AND deleted = FALSE", nativeQuery = true)
+    List<Map<String, Object>> findAllRestrooms(int buildingId);
 
     @Transactional(timeout = 10)
-    @Query(value = "SELECT id FROM restroom " +
-            "WHERE building_id = ?1 AND floor_name = ?2 AND deleted = FALSE AND product_status = TRUE " +
-            "ORDER BY id", nativeQuery = true)
-    List<Map<String, Object>> findRestroomByBuildingIdAndFloorName(int buildingId, String floorName);
+    @Query(value = "SELECT id, floor_name, room_num FROM restroom " +
+            "WHERE building_id = ?1 AND deleted = FALSE AND product_status = TRUE", nativeQuery = true)
+    List<Map<String, Object>> findAvailableRestrooms(int buildingId);
 }
