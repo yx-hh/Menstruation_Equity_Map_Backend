@@ -26,14 +26,14 @@ public class StudentController {
     @ApiOperation("Search a product to find building information and returns top 5 buildings.")
     @GetMapping("/search")
     public List<BuildingVO> searchProduct(
-            @RequestParam(value = "longitude", defaultValue = "33.64325158034576") double longitude,
-            @RequestParam(value = "latitude", defaultValue = "-117.84370671600364") double latitude,
+            @RequestParam(value = "longitude", defaultValue = "-117.84370671600364") double longitude,
+            @RequestParam(value = "latitude", defaultValue = "33.64325158034576") double latitude,
     @RequestParam(value = "radius", required = false, defaultValue = "0.5") double radius) throws IOException {
         return buildingService.findNearestBuilding(latitude, longitude, radius);
     }
 
     @ApiOperation("Click a building to find floor and restroom information.")
-    @GetMapping("/building")
+    @GetMapping("/n")
     public BuildingVO buildingInfo(@RequestParam("building_id") Integer buildingId) throws IOException, IllegalAccessException, InstantiationException {
         return buildingService.findById(buildingId);
     }

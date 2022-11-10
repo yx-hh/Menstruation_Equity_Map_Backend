@@ -49,7 +49,6 @@ public class BuildingServiceImpl implements BuildingService {
             vo.setLatitude(latitude).
                     setLongitude(longitude).
                     setDistance(distance).
-                    // todo change to real walking time
                     setWalkingTime(walkingTime);
 
             res.add(vo);
