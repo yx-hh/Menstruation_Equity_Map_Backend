@@ -106,32 +106,4 @@ public class BuildingServiceImplement implements BuildingService {
         }
         return buildingVO.setFloors(floorVOList);
     }
-
-    private BuildingVO getBuildingVO(int buildingId, Map<String, List<RestroomVO>> restroomGroup) throws IOException {
-        // find building info
-        Building building = buildingRepository.findById(buildingId).get();
-
-        // if building's latitude or longitude is zero then call api to get the data
-        if (building.getLatitude() < 0.000001 && building.getLongitude() < 0.000001) {
-            BuildingAddress lagAndLat = googleMapHelper.getLagAndLat(building.getBuildingName());
-            // update building's latitude and longitude
-            buildingRepository.save(building.setLatitude(lagAndLat.getLatitude()).setLongitude(lagAndLat.getLongitude()));
-        }
-
-        // build floorVO
-        List<FloorVO> floorVOList = new ArrayList<>();
-        for (String floorName : restroomGroup.keySet()) {
-            FloorVO floorVO = new FloorVO();
-            floorVO.setName(floorName);
-            floorVO.setValidRoomNum(restroomGroup.get(floorName).size());
-            floorVO.setRestrooms(restroomGroup.get(floorName));
-            floorVOList.add(floorVO);
-        }
-
-        return new BuildingVO().setId(building.getId())
-                .setName(building.getBuildingName())
-                .setLatitude(building.getLatitude())
-                .setLongitude(building.getLongitude())
-                .setFloors(floorVOList);
-    }
 }
