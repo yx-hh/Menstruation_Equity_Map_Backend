@@ -26,11 +26,6 @@ public class RestroomServiceImplement implements RestroomService {
     }
 
     @Override
-    public Map<String, List<RestroomVO>> findAvailableRestrooms(int buildingId) {
-        return groupRestroom(restroomRepository.findAvailableRestrooms(buildingId));
-    }
-
-    @Override
     public boolean setProductStatus(int restroomId, boolean status) {
         try {
             Restroom restroom = restroomRepository.findById(restroomId).get();

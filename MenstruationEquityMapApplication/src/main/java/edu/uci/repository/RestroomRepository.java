@@ -22,11 +22,6 @@ public interface RestroomRepository extends JpaRepository<Restroom, Integer> {
     List<Map<String, Object>> findAllRestrooms(int buildingId);
 
     @Transactional(timeout = 10)
-    @Query(value = "SELECT id, floor_name, room_num FROM restroom " +
-            "WHERE building_id = ?1 AND deleted = FALSE AND product_status = TRUE", nativeQuery = true)
-    List<Map<String, Object>> findAvailableRestrooms(int buildingId);
-
-    @Transactional(timeout = 10)
     @Query(value = "select floor_name as name, count(*) as validRoomNum from restroom where building_id = ?1 and deleted = false and product_status = true GROUP BY floor_name", nativeQuery = true)
     List<Map<String, Object>> findAvailableFloorByBuildingId(Integer buildingId);
 }

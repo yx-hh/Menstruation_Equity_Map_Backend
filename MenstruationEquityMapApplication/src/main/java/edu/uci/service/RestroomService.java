@@ -13,7 +13,5 @@ import java.util.Map;
 public interface RestroomService {
     Map<String, List<RestroomVO>> findAllRestrooms(int buildingId);
 
-    Map<String, List<RestroomVO>> findAvailableRestrooms(int buildingId);
-
     boolean setProductStatus(int restroomId, boolean status);
 }
