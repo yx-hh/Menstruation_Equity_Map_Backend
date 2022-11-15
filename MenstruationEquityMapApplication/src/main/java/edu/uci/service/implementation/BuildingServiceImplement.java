@@ -79,6 +79,7 @@ public class BuildingServiceImplement implements BuildingService {
                     setScale(0, RoundingMode.CEILING).doubleValue();
             buildingVO.setDistance(distance).
                     setWalkingTime(walkingTime).
+                    setName(String.valueOf(buildingInfo.get("building_name"))).
                     setLatitude(Double.parseDouble(String.valueOf(buildingInfo.get("latitude")))).
                     setLongitude(Double.parseDouble(String.valueOf(buildingInfo.get("longitude"))));
             buildingVO = getFloorNum(buildingVO);
