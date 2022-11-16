@@ -35,7 +35,7 @@ public class BuildingVO {
     private Double longitude;
 
     @ApiModelProperty(value = "distance")
-    private Double distance;
+    private String distance;
 
     @ApiModelProperty(value = "walking_time")
     private Double walkingTime;

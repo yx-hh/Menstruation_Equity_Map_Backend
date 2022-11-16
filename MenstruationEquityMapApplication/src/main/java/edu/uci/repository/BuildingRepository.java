@@ -13,8 +13,15 @@ import java.util.Map;
  */
 public interface BuildingRepository extends JpaRepository<Building, Integer> {
 
+    /**
+     * Calculate distance by latitude and longitude
+     * @param userLatitude user latitude
+     * @param userLongitude user longitude
+     * @param radius the distance range from user location to building
+     * @return building id, building name, latitude and longitude
+     */
     @Query(value = "SELECT id, building_name, latitude, longitude, " +
-            "( 6371 * " +
+            "( 3959 * " +
             "    ACOS( " +
             "        COS( RADIANS( latitude ) ) * " +
             "        COS( RADIANS( ?1 ) ) * " +
@@ -23,6 +30,6 @@ public interface BuildingRepository extends JpaRepository<Building, Integer> {
             "        SIN( RADIANS( latitude ) ) * " +
             "        SIN( RADIANS( ?1) ) " +
             "    ) " +
-            ") AS distance FROM building HAVING distance <= ?3 ORDER BY distance ASC", nativeQuery = true)
+            ") AS distance FROM building where deleted = false HAVING distance <= ?3 ORDER BY distance ASC", nativeQuery = true)
     List<Map<String, Object>> findNearestBuildings(double userLatitude, double userLongitude, double radius);
 }

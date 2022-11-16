@@ -73,11 +73,19 @@ public class BuildingServiceImplement implements BuildingService {
         for (Map<String, Object> buildingInfo : buildingInfoList) {
             int id = Integer.parseInt(String.valueOf(buildingInfo.get("id")));
             BuildingVO buildingVO = new BuildingVO().setId(id);
+            // unit - mile
             double distance = BigDecimal.valueOf(Double.parseDouble(String.valueOf(buildingInfo.get("distance")))).
-                    setScale(2, RoundingMode.HALF_UP).doubleValue() * 1000;
-            double walkingTime = BigDecimal.valueOf(distance / 100.00).
+                    setScale(2, RoundingMode.HALF_UP).doubleValue();
+            // unit - minutes, rule: 100 meters' walking time 1 minutes
+            double walkingTime = BigDecimal.valueOf(distance * 16.0934).
                     setScale(0, RoundingMode.CEILING).doubleValue();
-            buildingVO.setDistance(distance).
+            String distancePresent;
+            if(distance <= 0.1){
+                distancePresent = new BigDecimal(distance * 528).setScale(2, RoundingMode.HALF_UP).doubleValue() +  "FT";
+            }else{
+                distancePresent = distance + "MILE";
+            }
+            buildingVO.setDistance(distancePresent).
                     setWalkingTime(walkingTime).
                     setName(String.valueOf(buildingInfo.get("building_name"))).
                     setLatitude(Double.parseDouble(String.valueOf(buildingInfo.get("latitude")))).
