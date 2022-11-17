@@ -21,4 +21,5 @@ google:
   geoUrl: https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=%s
   distance-matrix: https://maps.googleapis.com/maps/api/distancematrix/json?origins=%s&destinations=%s&key=%s
 
-
+qrcode:
+  url: localhost:8080/report?restroom_id=
