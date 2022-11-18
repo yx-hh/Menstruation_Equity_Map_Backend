@@ -56,10 +56,10 @@ public class StaffController {
                           @RequestParam("restroom_num") String restroomNum,
                           @RequestParam("restroom_id") String restroomId) {
         StringBuilder content = new StringBuilder(qrcodeUrl);
-        content.append("building_name=?").append(buildingName);
-        content.append("floor_name=?").append(floorName);
-        content.append("restroom_num=?").append(restroomNum);
-        content.append("restroom_id=?").append(restroomId);
+        content.append("building_name=").append(buildingName.replace(" ", "_"));
+        content.append("&floor_name=").append(floorName.replace(" ", "_"));
+        content.append("&restroom_num=").append(restroomNum);
+        content.append("&restroom_id=").append(restroomId);
         try {
             QRCodeUtil.writeQRCode(content.toString(), response.getOutputStream());
         } catch (IOException e) {
