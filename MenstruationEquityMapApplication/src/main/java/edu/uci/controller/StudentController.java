@@ -40,9 +40,9 @@ public class StudentController {
     }
 
     @ApiOperation("Report missing product.")
-    @PostMapping("/report-miss")
-    public boolean reportMissing(@RequestParam("restroom_id") String restroomId) {
+    @GetMapping("/report-miss")
+    public boolean reportMissing(@RequestParam("restroom_id") Integer restroomId) {
         // send email to facilities and update database
-        return buildingService.reportMiss(Integer.parseInt(restroomId));
+        return buildingService.reportMiss(restroomId);
     }
 }
