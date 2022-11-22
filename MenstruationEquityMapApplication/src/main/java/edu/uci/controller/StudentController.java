@@ -41,7 +41,8 @@ public class StudentController {
 
     @ApiOperation("Report missing product.")
     @PostMapping("/report-miss")
-    public boolean reportMissing(@RequestParam("restroom_id") String restroomId) {
-        return restroomService.setProductStatus(Integer.parseInt(restroomId), false);
+    public boolean reportMissing(@RequestParam("restroom_id") Integer restroomId) {
+        // send email to facilities and update database
+        return buildingService.reportMiss(restroomId);
     }
 }

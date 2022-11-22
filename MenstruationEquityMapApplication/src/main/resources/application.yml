@@ -13,13 +13,31 @@ spring:
     title: menstruation-equality-map
     description: menstruation-equality-map
   jpa:
-    show-sql: true
+    show-sql: false
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: estellayuxin@gmail.com
+    password: vvubptqalrgrqznt
+    receivers: yuxinh20@uci.edu,ruiyanm@uci.edu
+    properties:
+      mail:
+        transport:
+          protocol: smtp
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        debug: false
+
 
 google:
   api-key: AIzaSyDL0gcQf5NFWRFZdXgUtatPoOxE5JaxdJY
   # get building's latitude and longitude
   geoUrl: https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=%s
   distance-matrix: https://maps.googleapis.com/maps/api/distancematrix/json?origins=%s&destinations=%s&key=%s
-
+server:
 qrcode:
   url: localhost:8080/report?restroom_id=
+refill:
+  url: http://localhost:8080/report-refill?restroom_id=

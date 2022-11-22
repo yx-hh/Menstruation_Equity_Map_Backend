@@ -1,8 +1,10 @@
 package edu.uci.service.implementation;
 
+import edu.uci.common.GmailHelper;
 import edu.uci.common.GoogleMapHelper;
 import edu.uci.objects.BuildingAddress;
 import edu.uci.objects.DO.Building;
+import edu.uci.objects.DO.Restroom;
 import edu.uci.objects.VO.BuildingVO;
 import edu.uci.objects.VO.FloorVO;
 import edu.uci.objects.VO.RestroomVO;
@@ -10,7 +12,9 @@ import edu.uci.repository.BuildingRepository;
 import edu.uci.repository.RestroomRepository;
 import edu.uci.service.BuildingService;
 import edu.uci.service.RestroomService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -24,6 +28,7 @@ import java.util.Map;
  * @author ruiyan ma
  */
 @Service
+@Slf4j
 public class BuildingServiceImplement implements BuildingService {
 
     @Autowired
@@ -37,6 +42,12 @@ public class BuildingServiceImplement implements BuildingService {
 
     @Autowired
     RestroomService restroomService;
+
+    @Autowired
+    GmailHelper gmailHelper;
+
+    @Value("${refill.url}")
+    String refillUrl;
 
     @Override
     public List<BuildingVO> findAllBuildings() {
@@ -80,9 +91,9 @@ public class BuildingServiceImplement implements BuildingService {
             double walkingTime = BigDecimal.valueOf(distance * 16.0934).
                     setScale(0, RoundingMode.CEILING).doubleValue();
             String distancePresent;
-            if(distance <= 0.1){
-                distancePresent = new BigDecimal(distance * 528).setScale(2, RoundingMode.HALF_UP).doubleValue() +  "FT";
-            }else{
+            if (distance <= 0.1) {
+                distancePresent = new BigDecimal(distance * 528).setScale(2, RoundingMode.HALF_UP).doubleValue() + "FT";
+            } else {
                 distancePresent = distance + "MILE";
             }
             buildingVO.setDistance(distancePresent).
@@ -114,5 +125,35 @@ public class BuildingServiceImplement implements BuildingService {
             floorVOList.add(floorVO);
         }
         return buildingVO.setFloors(floorVOList);
+    }
+
+    @Override
+    public boolean reportMiss(int restroomId) {
+        // send email to notify facility
+        try {
+            Restroom restroom = restroomRepository.findById(restroomId).get();
+        if (restroom == null) return false;
+        Building building = buildingRepository.findById(restroom.getBuildingId()).get();
+        if (building == null) return false;
+        String restroomLocation = building.getBuildingName() + "- Floor " + restroom.getFloorName() + " Restroom " + restroom.getRoomNum();
+        String subject = "Need Refilling Notice: " + restroomLocation;
+        refillUrl = refillUrl + restroomId;
+        String mailMessage = String.format(
+                "Dear facility,\n" +
+                        "\n" +
+                        "Hope you have a great day. %s needs to replenish menstrual supplies. If you have completed replenishment, please click the following link to update the status: %s\n" +
+                        "\n" +
+                        "Thank you for your patience and time in advance!\n" +
+                        "\n" +
+                        "Best,\n" +
+                        "Womxn's Center for Success", restroomLocation, refillUrl);
+        gmailHelper.sendMail(subject, mailMessage);
+        // update database
+        restroomService.setProductStatus(restroomId, false);
+        } catch (Exception e) {
+            log.error("send email to facilities or update restroom status fail!");
+            return false;
+        }
+        return true;
     }
 }

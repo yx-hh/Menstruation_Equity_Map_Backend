@@ -37,9 +37,9 @@ public class StaffController {
     private String qrcodeUrl;
 
     @ApiOperation("Report refilling product.")
-    @PostMapping("/report-refill")
-    public boolean reportRefill(@RequestParam("restroom_id") String restroomId) {
-        return restroomService.setProductStatus(Integer.parseInt(restroomId), true);
+    @GetMapping("/report-refill")
+    public boolean reportRefill(@RequestParam("restroom_id") Integer restroomId) {
+        return restroomService.setProductStatus(restroomId, true);
     }
 
     @ApiOperation("Return all buildings information.")
