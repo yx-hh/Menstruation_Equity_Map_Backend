@@ -15,7 +15,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -56,9 +55,9 @@ public class StaffController {
                           @RequestParam("restroom_num") String restroomNum,
                           @RequestParam("restroom_id") String restroomId) {
         StringBuilder content = new StringBuilder(qrcodeUrl);
-        content.append("building_name=").append(buildingName.replace(" ", "_"));
-        content.append("&floor_name=").append(floorName.replace(" ", "_"));
-        content.append("&restroom_num=").append(restroomNum);
+        content.append("building_name=").append(buildingName.trim().replace(" ", "_"));
+        content.append("&floor_name=").append(floorName.trim().replace(" ", "_"));
+        content.append("&restroom_num=").append(restroomNum.trim().replace(" ", "_"));
         content.append("&restroom_id=").append(restroomId);
         try {
             QRCodeUtil.writeQRCode(content.toString(), response.getOutputStream());

@@ -38,6 +38,6 @@ google:
   distance-matrix: https://maps.googleapis.com/maps/api/distancematrix/json?origins=%s&destinations=%s&key=%s
 server:
 qrcode:
-  url: localhost:8080/report?restroom_id=
+  url: localhost:8080/report?
 refill:
   url: http://localhost:8080/report-refill?restroom_id=
