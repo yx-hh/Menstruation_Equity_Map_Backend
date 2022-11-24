@@ -26,7 +26,7 @@ VALUES
 ('Arts Instruction & Technology Resourse Center  AITR','33.65156943','-117.8460916'),
 ('Beckman Laser Institute   BLI','33.64435864','-117.8499125'),
 ('Berk Hall   BH','33.64641894','-117.8494653'),
-('Biological Sciences Admin.  BSA','33.64590314','-117.8428991'),
+('Biological Sciences Admin.  BSA','33.64427871', '-117.84513706'),
 ('Biological Sciences III','33.64550388','-117.8462589'),
 ('Bonney Research Laboratory   BRL','33.64676308','-117.8461875'),
 ('Bren Hall  DBH','33.64328216','-117.8420153'),
