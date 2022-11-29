@@ -38,8 +38,16 @@ public class StaffController {
 
     @ApiOperation("Report refilling product.")
     @GetMapping("/report-refill")
-    public boolean reportRefill(@RequestParam("restroom_id") Integer restroomId) {
-        return restroomService.setProductStatus(restroomId, true);
+    public String reportRefill(@RequestParam("restroom_id") Integer restroomId) {
+        boolean flag = false;
+        try {
+            flag = restroomService.setProductStatus(restroomId, true);
+            return flag ? "Update Success!" : "Update Fail! Please try later!";
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            return "Update Fail! Please try later!";
+        }
     }
 
     @ApiOperation("Return all buildings information.")
