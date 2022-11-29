@@ -3,9 +3,9 @@ spring:
     name: menstruation-equality-map
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/menstruation_equity_map?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&useSSL=false
+    url: jdbc:mysql://localhost:33060/menstruation_equity_map?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&useSSL=false
     username: root
-    password:
+    password: 22hjz9UhA-S
   swagger:
     title: menstruation-equality-map
     description: menstruation-equality-map
@@ -26,7 +26,6 @@ spring:
           starttls:
             enable: true
         debug: false
-
 
 google:
   api-key: AIzaSyDL0gcQf5NFWRFZdXgUtatPoOxE5JaxdJY

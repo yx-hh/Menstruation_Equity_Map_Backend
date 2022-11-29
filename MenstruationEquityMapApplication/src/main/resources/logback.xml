@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/base.xml" />
+	<property name="AppName" value="MenstruationProductMap" />
+	<property name="LogFilePath" value="~/log/MenstruationProductMap" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+        	<charset>UTF-8</charset>
+			<pattern>${AppName} %X{reqNo} %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+          
+    </appender>
+	<!-- create log file daily -->
+	<appender name="SIFT"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LogFilePath}/${AppName}_stdout.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LogFilePath}/${AppName}_stdout-%d{yyyyMMdd}.log</FileNamePattern>
+			<MaxHistory>360</MaxHistory>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!--log format：%d represent date，%thread represent thread，%-5level：level only show 5 character from left %msg：log message，%n change line %X{logID} log id -->
+			<charset>UTF-8</charset>
+			<pattern>${AppName} %X{reqNo} %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="SIFT" />
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>

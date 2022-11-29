@@ -45,7 +45,6 @@ public class StaffController {
             return flag ? "Update Success!" : "Update Fail! Please try later!";
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
             return "Update Fail! Please try later!";
         }
     }
