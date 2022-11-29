@@ -39,6 +39,7 @@ public class StaffController {
     @ApiOperation("Report refilling product.")
     @GetMapping("/report-refill")
     public String reportRefill(@RequestParam("restroom_id") Integer restroomId) {
+        if(null == restroomId ) return "Invalid restroomId";
         boolean flag = false;
         try {
             flag = restroomService.setProductStatus(restroomId, true);

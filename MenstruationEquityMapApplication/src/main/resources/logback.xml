@@ -3,7 +3,7 @@
 <configuration>
 	<include resource="org/springframework/boot/logging/logback/base.xml" />
 	<property name="AppName" value="MenstruationProductMap" />
-	<property name="LogFilePath" value="~/log/MenstruationProductMap" />
+	<property name="LogFilePath" value="logs/MenstruationProductMap/" />
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -13,11 +13,12 @@
           
     </appender>
 	<!-- create log file daily -->
-	<appender name="SIFT"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+	<appender name="FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${LogFilePath}/${AppName}_stdout.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<FileNamePattern>${LogFilePath}/${AppName}_stdout-%d{yyyyMMdd}.log</FileNamePattern>
-			<MaxHistory>360</MaxHistory>
+			<MaxHistory>60</MaxHistory>
+			<totalSizeCap>2GB</totalSizeCap>
 		</rollingPolicy>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<!--log format：%d represent date，%thread represent thread，%-5level：level only show 5 character from left %msg：log message，%n change line %X{logID} log id -->
@@ -27,7 +28,6 @@
 	</appender>
 
 	<root level="INFO">
-		<appender-ref ref="SIFT" />
-		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
 	</root>
 </configuration>

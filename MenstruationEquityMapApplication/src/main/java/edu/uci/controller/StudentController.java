@@ -38,6 +38,7 @@ public class StudentController {
     @GetMapping("/report-miss")
     public String reportMissing(@RequestParam("restroom_id") Integer restroomId) {
         // send email to facilities and update database
+        if(null == restroomId) return "Invalid restroom Id";
         return buildingService.reportMiss(restroomId);
     }
 }
