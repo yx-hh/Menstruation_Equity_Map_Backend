@@ -20,9 +20,12 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author ruiyan ma
@@ -128,32 +131,39 @@ public class BuildingServiceImplement implements BuildingService {
     }
 
     @Override
-    public boolean reportMiss(int restroomId) {
+    public String reportMiss(int restroomId) {
         // send email to notify facility
         try {
             Restroom restroom = restroomRepository.findById(restroomId).get();
-        if (restroom == null) return false;
-        Building building = buildingRepository.findById(restroom.getBuildingId()).get();
-        if (building == null) return false;
-        String restroomLocation = building.getBuildingName() + "- Floor " + restroom.getFloorName() + " Restroom " + restroom.getRoomNum();
-        String subject = "Need Refilling Notice: " + restroomLocation;
-        refillUrl = refillUrl + restroomId;
-        String mailMessage = String.format(
-                "Dear facility,\n" +
-                        "\n" +
-                        "Hope you have a great day. %s needs to replenish menstrual supplies. If you have completed replenishment, please click the following link to update the status: %s\n" +
-                        "\n" +
-                        "Thank you for your patience and time in advance!\n" +
-                        "\n" +
-                        "Best,\n" +
-                        "Womxn's Center for Success", restroomLocation, refillUrl);
-        gmailHelper.sendMail(subject, mailMessage);
-        // update database
-        restroomService.setProductStatus(restroomId, false);
+            // check alreay been report or not
+            if(restroom.getProductStatus() == false && !isLargerThanOneHour(restroom.getUpdateTime())){
+                return "Need refill already been reported within one hour, please waiting for a while!";
+            }
+            Building building = buildingRepository.findById(restroom.getBuildingId()).get();
+            String restroomLocation = building.getBuildingName() + "- Floor " + restroom.getFloorName() + " Restroom " + restroom.getRoomNum();
+            String subject = "Need Refilling Notice: " + restroomLocation;
+            refillUrl = refillUrl + restroomId;
+            String mailMessage = String.format(
+                    "Dear facility,\n" +
+                            "\n" +
+                            "Hope you have a great day. %s needs to replenish menstrual supplies. If you have completed replenishment, please click the following link to update the status: %s\n" +
+                            "\n" +
+                            "Thank you for your patience and time in advance!\n" +
+                            "\n" +
+                            "Best,\n" +
+                            "Womxn's Center for Success", restroomLocation, refillUrl);
+            gmailHelper.sendMail(subject, mailMessage);
+            // update database
+            restroomService.setProductStatus(restroomId, false);
         } catch (Exception e) {
             log.error("send email to facilities or update restroom status fail!");
-            return false;
+            return "Sending email to facilities or update restroom status fail! Please try later!";
         }
-        return true;
+        return "Report Success!";
+    }
+
+    private boolean isLargerThanOneHour(Date lastUpdateTime){
+        long diff = TimeUnit.MILLISECONDS.toHours(Instant.now().toEpochMilli() - lastUpdateTime.getTime());
+        return diff >= 1;
     }
 }

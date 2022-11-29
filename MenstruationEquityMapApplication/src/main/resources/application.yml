@@ -2,11 +2,8 @@ spring:
   application:
     name: menstruation-equality-map
   datasource:
-#    schema: classpath:db/schema.sql
-#    data: classpath:db/data.sql
-#    sql-script-encoding: UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/menstruation_equity_map?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&useSSL=false
+    url: jdbc:mysql://localhost:3306/menstruation_equity_map?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&useSSL=false
     username: root
     password:
   swagger:

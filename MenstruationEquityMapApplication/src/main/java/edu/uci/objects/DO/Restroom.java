@@ -1,9 +1,14 @@
 package edu.uci.objects.DO;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
+import java.time.ZonedDateTime;
+import java.util.Date;
 
 /**
  * RestroomVO class, represents a Restroom.
@@ -14,7 +19,7 @@ import javax.persistence.*;
 @Data
 @Accessors(chain = true)
 @Table(name = "restroom")
-public class Restroom extends ComDO {
+public class Restroom{
 
     @Id
     @Column(name = "id")
@@ -31,5 +36,20 @@ public class Restroom extends ComDO {
     private String roomNum;
 
     @Column(name = "product_status")
-    private boolean productStatus;
+    private Boolean productStatus;
+
+    @Column(name = "deleted")
+    private Boolean deleted;
+
+    /**
+     * UTC time
+     */
+    @Column(name = "create_time")
+    private Date createTime;
+
+    /**
+     * UTC time
+     */
+    @Column(name = "update_time")
+    private Date updateTime;
 }

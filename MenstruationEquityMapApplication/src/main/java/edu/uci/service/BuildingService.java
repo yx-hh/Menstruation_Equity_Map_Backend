@@ -16,5 +16,5 @@ public interface BuildingService {
 
     List<BuildingVO> findNearestBuilding(double latitude, double longitude, double radius) throws IOException;
 
-    boolean reportMiss(int restroomId);
+    String reportMiss(int restroomId);
 }

@@ -4,7 +4,7 @@
  * @author ruiyan ma
  */
 
-package edu.uci.entities.VO.config;
+package edu.uci.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

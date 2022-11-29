@@ -27,13 +27,9 @@ public class RestroomServiceImplement implements RestroomService {
 
     @Override
     public boolean setProductStatus(int restroomId, boolean status) {
-        try {
-            Restroom restroom = restroomRepository.findById(restroomId).get();
-            restroomRepository.save(restroom.setProductStatus(status));
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
+        Restroom restroom = restroomRepository.findById(restroomId).get();
+        restroomRepository.save(restroom.setProductStatus(status).setUpdateTime(new Date()));
+        return true;
     }
 
     private Map<String, List<RestroomVO>> groupRestroom(List<Map<String, Object>> restroomInfoList) {

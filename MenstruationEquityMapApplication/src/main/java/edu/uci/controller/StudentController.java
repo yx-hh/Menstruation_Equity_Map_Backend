@@ -8,7 +8,6 @@ package edu.uci.controller;
 
 import edu.uci.objects.VO.BuildingVO;
 import edu.uci.service.BuildingService;
-import edu.uci.service.RestroomService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +36,7 @@ public class StudentController {
 
     @ApiOperation("Report missing product.")
     @GetMapping("/report-miss")
-    public boolean reportMissing(@RequestParam("restroom_id") Integer restroomId) {
+    public String reportMissing(@RequestParam("restroom_id") Integer restroomId) {
         // send email to facilities and update database
         return buildingService.reportMiss(restroomId);
     }

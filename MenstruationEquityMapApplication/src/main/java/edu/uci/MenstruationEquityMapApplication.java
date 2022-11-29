@@ -7,6 +7,8 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import java.util.TimeZone;
+
 @SpringBootApplication
 @EnableJpaAuditing
 @Slf4j
@@ -18,6 +20,7 @@ public class MenstruationEquityMapApplication extends SpringBootServletInitializ
     }
 
     public static void main(String[] args) {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         SpringApplication.run(MenstruationEquityMapApplication.class, args);
     }
 }

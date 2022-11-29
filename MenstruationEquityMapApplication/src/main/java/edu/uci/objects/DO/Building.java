@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Building object
@@ -15,7 +16,7 @@ import javax.persistence.*;
 @Data
 @Table(name = "building")
 @Accessors(chain = true)
-public class Building extends ComDO {
+public class Building {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,4 +30,19 @@ public class Building extends ComDO {
 
     @Column(name = "longitude")
     private Double longitude;
+
+    @Column(name = "deleted")
+    private Boolean deleted;
+
+    /**
+     * UTC time
+     */
+    @Column(name = "create_time")
+    private Date createTime;
+
+    /**
+     * UTC time
+     */
+    @Column(name = "update_time")
+    private Date updateTime;
 }
