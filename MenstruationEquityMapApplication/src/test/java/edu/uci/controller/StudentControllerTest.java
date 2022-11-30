@@ -30,17 +30,25 @@ class StudentControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    void searchProduct() throws Exception {
+    void testSearchProduct() throws Exception {
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
-                        .get("/search?radius=0.2&user_latitude=33.64325158034576&user_longitude=-117.84370671600364")
+                        .get("/search?radius=0.1&user_latitude=33.64325158034576&user_longitude=-117.84370671600364")
                         .accept(MediaType.ALL_VALUE))
                 .andExpect(status().isOk())
                 .andReturn();
-        String contentAsString = mvcResult.getResponse().getContentAsString();
+        String stringContent = mvcResult.getResponse().getContentAsString();
         Gson gson = new Gson();
         Type type = new TypeToken<ArrayList<BuildingVO>>(){}.getType();
-        List<BuildingVO> res = gson.fromJson(contentAsString, type);
-        Assert.assertSame(res.size(), 19);
+        List<BuildingVO> buildingVOS = gson.fromJson(stringContent, type);
+
+        // check size
+        Assert.assertSame(buildingVOS.size(), 8);
+
+        // check ids
+        List<Integer> resultIDs = List.of(43, 66, 64, 70, 20, 65, 73, 13);
+        for (int i = 0; i < buildingVOS.size(); ++i) {
+            Assert.assertEquals(buildingVOS.get(i).getId(), resultIDs.get(i));
+        }
     }
 
 }
