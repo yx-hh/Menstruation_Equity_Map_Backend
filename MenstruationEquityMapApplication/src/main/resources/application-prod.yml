@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: menstruation-equality-map
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://womxnscenter-1.cl7qwe1pnfk1.us-west-2.rds.amazonaws.com:3306/menstruation?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&useSSL=false
+    username: admin
+    password: R17jUL1BNUZl4LizDzg7
+  swagger:
+    title: menstruation-equality-map
+    description: menstruation-equality-map
+  jpa:
+    show-sql: false
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: estellayuxin@gmail.com
+    password: vvubptqalrgrqznt
+#    receivers: fm-servicedesk@uci.edu,jmcampb1@uci.edu,sergios2@uci.edu
+    receivers: yuxinh20@uci.edu,ruiyanm@uci.edu,zichengshan@gmail.com
+    properties:
+      mail:
+        transport:
+          protocol: smtp
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        debug: false
+
+google:
+  api-key: AIzaSyAlPKSgPZ2qfD1F_0pE6uOY4XFh4muKREw
+  # get building's latitude and longitude
+  geoUrl: https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=%s
+server:
+qrcode:
+  url: http://localhost:3000/report?
+refill:
+  url: https://ec2-54-214-227-92.us-west-2.compute.amazonaws.com:8080/report-refill?restroom_id=

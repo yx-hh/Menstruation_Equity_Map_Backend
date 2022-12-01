@@ -7,6 +7,7 @@
 package edu.uci.controller;
 
 import edu.uci.objects.VO.BuildingVO;
+import edu.uci.objects.VO.MessageVO;
 import edu.uci.service.BuildingService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,9 +37,9 @@ public class StudentController {
 
     @ApiOperation("Report missing product.")
     @GetMapping("/report-miss")
-    public String reportMissing(@RequestParam("restroom_id") Integer restroomId) {
+    public MessageVO reportMissing(@RequestParam("restroom_id") Integer restroomId) {
         // send email to facilities and update database
-        if(null == restroomId) return "Invalid restroom Id";
-        return buildingService.reportMiss(restroomId);
+        if(null == restroomId) return new MessageVO("Invalid restroom Id");
+        return new MessageVO(buildingService.reportMiss(restroomId));
     }
 }

@@ -8,6 +8,7 @@ package edu.uci.controller;
 
 import edu.uci.common.QRCodeUtil;
 import edu.uci.objects.VO.BuildingVO;
+import edu.uci.objects.VO.MessageVO;
 import edu.uci.service.BuildingService;
 import edu.uci.service.RestroomService;
 import io.swagger.annotations.Api;
@@ -38,15 +39,15 @@ public class StaffController {
 
     @ApiOperation("Report refilling product.")
     @GetMapping("/report-refill")
-    public String reportRefill(@RequestParam("restroom_id") Integer restroomId) {
-        if(null == restroomId ) return "Invalid restroomId";
-        boolean flag = false;
+    public MessageVO reportRefill(@RequestParam("restroom_id") Integer restroomId) {
+        if(null == restroomId ) return new MessageVO("Invalid restroomId");
+        boolean flag;
         try {
             flag = restroomService.setProductStatus(restroomId, true);
-            return flag ? "Update Success!" : "Update Fail! Please try later!";
+            return flag ? new MessageVO("Update Success!") : new MessageVO("Update Fail! Please try later!");
         } catch (Exception e) {
             e.printStackTrace();
-            return "Update Fail! Please try later!";
+            return new MessageVO("Update Fail! Please try later!");
         }
     }
 

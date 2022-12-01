@@ -6,8 +6,8 @@ CREATE TABLE `restroom` (
     `floor_name` varchar(200) NOT NULL,
     `room_num` varchar(200) NOT NULL,
     `product_status` int NOT NULL DEFAULT '1',
-    `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `deleted` tinyint(1) NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`),
     UNIQUE KEY `id_UNIQUE` (`id`)
