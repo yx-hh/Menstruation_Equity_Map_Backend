@@ -21,7 +21,7 @@ public class ControllerInterceptor {
 
     private static Logger logger = LoggerFactory.getLogger(ControllerInterceptor.class);
 
-    private static final String POINT_CUT = "execution(public * edu.uci.controller..*.*(..)))";
+    private static final String POINT_CUT = "execution(public * edu.uci.controller..*.*(..)) && !execution(public * edu.uci.controller.StaffController.getQrCode(..))";
     private static final String BRACKETS = "()";
     private static final String SPOT = ".";
     private static final String REQUEST_BODY_VALUE = " RequestBody value:";
@@ -49,7 +49,7 @@ public class ControllerInterceptor {
             if (obj instanceof List && ((List) obj).size() > 10) {
                 logObj = ((List) obj).size();
                 logger.info(className + SPOT + methodName + RESPONSE_BODY_VALUE + " list size over 10 only print list size:"+ gson.toJson(logObj));
-            }else{
+            }else if(obj instanceof Object){
                 logger.info(className + SPOT + methodName + RESPONSE_BODY_VALUE + gson.toJson(logObj));
             }
         }
