@@ -105,7 +105,9 @@ public class BuildingServiceImplement implements BuildingService {
                     setLatitude(Double.parseDouble(String.valueOf(buildingInfo.get("latitude")))).
                     setLongitude(Double.parseDouble(String.valueOf(buildingInfo.get("longitude"))));
             buildingVO = getFloorNum(buildingVO);
-            buildingVOList.add(buildingVO);
+            if(buildingVO.getFloors() != null){
+                buildingVOList.add(buildingVO);
+            }
         }
         return buildingVOList;
     }
@@ -127,7 +129,12 @@ public class BuildingServiceImplement implements BuildingService {
                     setValidRoomNum(Integer.parseInt(String.valueOf(floorInfo.get("validRoomNum"))));
             floorVOList.add(floorVO);
         }
-        return buildingVO.setFloors(floorVOList);
+        if (floorVOList.size() == 0) {
+            return buildingVO.setFloors(null);
+        } else {
+            return buildingVO.setFloors(floorVOList);
+        }
+
     }
 
     @Override
@@ -136,23 +143,27 @@ public class BuildingServiceImplement implements BuildingService {
         try {
             Restroom restroom = restroomRepository.findById(restroomId).get();
             // check alreay been report or not
-            if(restroom.getProductStatus() == false && !isLargerThanOneHour(restroom.getUpdateTime())){
+            if (restroom.getProductStatus() == false && !isLargerThanOneHour(restroom.getUpdateTime())) {
                 return "Need refill already been reported within one hour, please waiting for a while!";
             }
             Building building = buildingRepository.findById(restroom.getBuildingId()).get();
             String restroomLocation = building.getBuildingName() + "- Floor " + restroom.getFloorName() + " Restroom " + restroom.getRoomNum();
             String subject = "Need Refilling Notice: " + restroomLocation;
-            refillUrl = refillUrl + restroomId;
-            String mailMessage = String.format(
-                    "Dear facility,\n" +
-                            "\n" +
-                            "Hope you have a great day. %s needs to replenish menstrual supplies. If you have completed replenishment, please click the following link to update the status: %s\n" +
-                            "\n" +
-                            "Thank you for your patience and time in advance!\n" +
-                            "\n" +
-                            "Best,\n" +
-                            "Womxn's Center for Success", restroomLocation, refillUrl);
-            gmailHelper.sendMail(subject, mailMessage);
+
+            String content = String.format("<p>Hope you have a great day. %s needs to replenish menstrual supplies. " +
+                    "If you have completed replenishment, " +
+                    "please click the following link to update the status: <a href=%s%d>Click here</a> </p>", restroomLocation, refillUrl, restroomId);
+            StringBuilder sb = new StringBuilder();
+            sb.append("<html><body>");
+            sb.append("<p>Dear facility,</p>");
+            sb.append("<p/>");
+            sb.append(content);
+            sb.append("<p>Thank you for your patience and time in advance!</p>");
+            sb.append("<p>Best,</p>");
+            sb.append("<p>Womxn's Center for Success</p>");
+            sb.append("</body></html>");
+
+            gmailHelper.sendMail(subject, sb.toString());
             // update database
             restroomService.setProductStatus(restroomId, false);
         } catch (Exception e) {
@@ -162,7 +173,7 @@ public class BuildingServiceImplement implements BuildingService {
         return "Report Success!";
     }
 
-    private boolean isLargerThanOneHour(Date lastUpdateTime){
+    private boolean isLargerThanOneHour(Date lastUpdateTime) {
         long diff = TimeUnit.MILLISECONDS.toHours(Instant.now().toEpochMilli() - lastUpdateTime.getTime());
         return diff >= 1;
     }

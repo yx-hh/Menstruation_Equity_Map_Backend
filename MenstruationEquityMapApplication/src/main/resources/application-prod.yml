@@ -34,6 +34,6 @@ google:
   geoUrl: https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=%s
 server:
 qrcode:
-  url: http://localhost:3000/report?
+  url: https://menstruation-products-map.netlify.app/report?
 refill:
-  url: https://ec2-54-214-227-92.us-west-2.compute.amazonaws.com:8080/report-refill?restroom_id=
+  url: http://ec2-54-214-227-92.us-west-2.compute.amazonaws.com:8080/report-refill?restroom_id=
