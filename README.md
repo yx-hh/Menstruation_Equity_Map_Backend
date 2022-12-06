@@ -146,6 +146,10 @@ The file of the Maven project is used to manage: source code, configuration file
 nohup java -jar MenstruationEquityMapApplication-1.jar --spring.profiles.active=prod >/dev/null 2>&1 &
 ```
 
+## Others
+
+For other information about front-end, please go to this link: https://github.com/zichengshan/Menstruation_Equity_Map
+
 ## Credits
 
 List of contributers:
