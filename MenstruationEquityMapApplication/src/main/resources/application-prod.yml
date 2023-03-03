@@ -14,10 +14,9 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: estellayuxin@gmail.com
-    password: vvubptqalrgrqznt
-#    receivers: fm-servicedesk@uci.edu,jmcampb1@uci.edu,sergios2@uci.edu
-    receivers: yuxinh20@uci.edu,ruiyanm@uci.edu,zichengshan@gmail.com
+    username: youremail@gmail.com # change to admin or organization's gmail address
+    password: yourpassword # change to your app password
+    receivers: fm-servicedesk@uci.edu,jmcampb1@uci.edu,sergios2@uci.edu
     properties:
       mail:
         transport:

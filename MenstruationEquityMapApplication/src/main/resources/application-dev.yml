@@ -14,9 +14,9 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: estellayuxin@gmail.com
-    password: vvubptqalrgrqznt
-    receivers: yuxinh20@uci.edu
+    username:
+    password:
+    receivers:
     properties:
       mail:
         transport:
